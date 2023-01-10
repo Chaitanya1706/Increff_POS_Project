@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +19,7 @@ public class BrandPojo {
     private int id;
     private String brand;
     private String category;
+
 
 //    public int getId() {
 //        return id;
@@ -42,4 +44,9 @@ public class BrandPojo {
 //    public void setCategory(String category) {
 //        this.category = category;
 //    }
+}
+
+class Pair {
+    String category;
+    int id;
 }

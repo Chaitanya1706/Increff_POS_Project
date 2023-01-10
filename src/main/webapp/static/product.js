@@ -174,15 +174,19 @@ function displayProductList(data){
 }
 
 function getList(data){
-    var $dropDown = $('#inputBrandCategory');
+    var $dropDown = $('#inputBrand');
+    var $dropDownCateg = $('#inputBrandCategory');
     var $editDropDown = $('#product-edit-form').find("select")
     $dropDown.empty();
+    $dropDownCateg.empty();
     $editDropDown.empty();
 
     for(var i in data){
     		var e = data[i];
-    		var opt = '<option value="' + e.id +'">' + e.id + '</option>'
+    		var opt = '<option value="' + e.brand +'">' + e.brand + '</option>'
+    		var opt2 = '<option value="' + e.category +'">' + e.category + '</option>'
     		$dropDown.append(opt);
+    		$dropDownCateg.append(opt2);
     		$editDropDown.append(opt);
     }
 }
