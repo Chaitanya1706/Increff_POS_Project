@@ -191,6 +191,27 @@ function getList(data){
     }
 }
 
+function getCategory(value){
+
+    var url = getBrandUrl() + "/" + "categ";
+    $.ajax({
+    	   url: url,
+    	   type: 'POST',
+    	   data: value,
+    	   headers: {
+           	'Content-Type': 'application/json'
+           },
+    	   success: function(data) {
+    	   		getCategfromBrand(data);
+    	   },
+    	   error: handleAjaxError
+    	});
+}
+
+function getCategfromBrand(data){
+    console.log(data);
+}
+
 
 
 function displayEditProduct(id){
