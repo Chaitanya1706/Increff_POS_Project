@@ -1,6 +1,7 @@
 package com.increff.pos.dao;
 
 import com.increff.pos.pojo.ProductPojo;
+import com.increff.pos.service.ApiException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,12 +19,21 @@ public class ProductDao extends AbstractDao{
     private static String select_id = "select p from ProductPojo p where id=:id";
     private static String select_all = "select p from ProductPojo p";
 
+    private static String get_id = "select p from ProductPojo p where barcode=:barcode";
+
+
     @PersistenceContext
     private EntityManager em;
 
     @Transactional
-    public void insert(ProductPojo p) {
-        em.persist(p);
+    public void insert(ProductPojo p) throws ApiException{
+        try{
+            em.persist(p);
+        }
+        catch(Exception e){
+            throw new ApiException("Barcode already exist");
+        }
+
     }
 
     // todo -> make abstract methods
@@ -44,6 +54,13 @@ public class ProductDao extends AbstractDao{
         TypedQuery<ProductPojo> query = getQuery(select_all, ProductPojo.class);
         return query.getResultList();
     }
+
+    public ProductPojo getProductFromBarcode(String barcode){
+        TypedQuery<ProductPojo> query = getQuery(get_id, ProductPojo.class);
+        query.setParameter("barcode", barcode);
+        return getSingle(query);
+    }
+
 
     public void update(ProductPojo p) {
     }

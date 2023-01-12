@@ -23,7 +23,13 @@ public class BrandService {
         if(StringUtil.isEmpty(b.getBrand())) {
             throw new ApiException("brand name cannot be empty");
         }
-        dao.insert(b);
+        BrandPojo bp = dao.getCategoryId(b.getBrand(),b.getCategory());
+        if(bp!=null){
+            throw new ApiException(("this brand and category already exist"));
+        }
+        else {
+            dao.insert(b);
+        }
     }
 
 
@@ -44,6 +50,14 @@ public class BrandService {
         return dao.getCategory(b);
     }
 
+    public Integer getCategoryId(String brand, String category) {
+
+
+        return dao.getCategoryId(brand,category).getId();
+    }
+
+
+
 
     public List<BrandPojo> getAll() {
         return dao.selectAll();
@@ -52,6 +66,10 @@ public class BrandService {
 
     public void update(int id, BrandPojo b) throws ApiException {
         normalize(b);
+        BrandPojo bp = dao.getCategoryId(b.getBrand(),b.getCategory());
+        if(bp!=null){
+            throw new ApiException(("this brand and category already exist"));
+        }
         BrandPojo ex = getCheck(id);
         ex.setBrand(b.getBrand());
         ex.setCategory(b.getCategory());

@@ -73,7 +73,7 @@ function getProductList(){
 
 
 function getCategoryList(){
-	var url = getBrandUrl();
+	var url = getBrandUrl()+"/"+"brandNames";
 	$.ajax({
 	   url: url,
 	   type: 'GET',
@@ -157,13 +157,16 @@ function downloadErrors(){
 function displayProductList(data){
 	var $tbody = $('#product-table').find('tbody');
 	$tbody.empty();
+//	console.log(data);
 	for(var i in data){
 		var e = data[i];
 		var buttonHtml = '<button onclick="deleteProduct(' + e.id + ')">delete</button>'
 		buttonHtml += ' <button onclick="displayEditProduct(' + e.id + ')">edit</button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
-		+ '<td>' + e.brand_category + '</td>'
+//		+ '<td>' + e.brandId + '</td>'
+		+ '<td>' + e.brand + '</td>'
+		+ '<td>' + e.category + '</td>'
 		+ '<td>'  + e.barcode + '</td>'
 		+ '<td>'  + e.name + '</td>'
 		+ '<td>'  + e.mrp + '</td>'
@@ -175,18 +178,15 @@ function displayProductList(data){
 
 function getList(data){
     var $dropDown = $('#inputBrand');
-    var $dropDownCateg = $('#inputBrandCategory');
-    var $editDropDown = $('#product-edit-form').find("select")
+    var $editDropDown = $('#editBrand')
     $dropDown.empty();
-    $dropDownCateg.empty();
     $editDropDown.empty();
 
     for(var i in data){
     		var e = data[i];
-    		var opt = '<option value="' + e.brand +'">' + e.brand + '</option>'
-    		var opt2 = '<option value="' + e.category +'">' + e.category + '</option>'
+    		var opt = '<option value="' + e +'">' + e + '</option>'
+
     		$dropDown.append(opt);
-    		$dropDownCateg.append(opt2);
     		$editDropDown.append(opt);
     }
 }
@@ -208,8 +208,47 @@ function getCategory(value){
     	});
 }
 
+
+function getCategoryEdit(value){
+
+    var url = getBrandUrl() + "/" + "categ";
+    $.ajax({
+    	   url: url,
+    	   type: 'POST',
+    	   data: value,
+    	   headers: {
+           	'Content-Type': 'application/json'
+           },
+    	   success: function(data) {
+    	   		getCategfromBrandEdit(data);
+    	   },
+    	   error: handleAjaxError
+    	});
+}
+
 function getCategfromBrand(data){
-    console.log(data);
+    var $dropDown = $('#inputBrandCategory');
+    $dropDown.empty();
+    for(var i in data){
+            var e = data[i];
+            var opt = '<option value="' + e +'">' + e + '</option>'
+            $dropDown.append(opt);
+       }
+
+}
+
+function getCategfromBrandEdit(data){
+
+    var $dropDown2 = $('#editBrandCategory');
+
+    $dropDown2.empty();
+    for(var i in data){
+            var e = data[i];
+            var opt = '<option value="' + e +'">' + e + '</option>'
+
+            $dropDown2.append(opt);
+       }
+
 }
 
 
@@ -257,7 +296,6 @@ function displayUploadData(){
 }
 
 function displayProduct(data){
-//	$("#select").prop
 	$("#product-edit-form input[name=barcode]").val(data.barcode);
 	$("#product-edit-form input[name=name]").val(data.name);
 	$("#product-edit-form input[name=mrp]").val(data.mrp);

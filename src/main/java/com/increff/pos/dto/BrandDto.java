@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BrandDto {
@@ -39,6 +41,17 @@ public class BrandDto {
         return list2;
     }
 
+    public List<String> getAllUniqueBrands() {
+        List<BrandPojo> list = service.getAll();
+        Set s = new HashSet();
+
+        for (BrandPojo p : list) {
+            s.add(p.getBrand());
+        }
+
+        List<String> l = new ArrayList<>(s);
+        return l;
+    }
     public void update(int id, BrandForm f) throws ApiException {
         BrandPojo p = convert(f);
         service.update(id, p);

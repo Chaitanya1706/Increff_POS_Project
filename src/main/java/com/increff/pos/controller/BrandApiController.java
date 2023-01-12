@@ -39,8 +39,8 @@ public class BrandApiController {
 
     @ApiOperation(value = "Gets brand category list")
     @RequestMapping(path = "/api/brand/categ", method = RequestMethod.POST)
-    public List<String> getCategory(@RequestBody String categ) throws ApiException {
-        return bdto.getCategory(categ);
+    public List<String> getCategory(@RequestBody String brand) throws ApiException {
+        return bdto.getCategory(brand);
     }
 
     @ApiOperation(value = "Gets list of all brands")
@@ -48,6 +48,13 @@ public class BrandApiController {
     public List<BrandData> getAll() {
 
         return bdto.getAll();
+    }
+
+    @ApiOperation(value = "Gets list of unique brands")
+    @RequestMapping(path = "/api/brand/brandNames", method = RequestMethod.GET)
+    public List<String> getAllUniqueBrands() {
+
+        return bdto.getAllUniqueBrands();
     }
 
     @ApiOperation(value = "Updates a Brand")

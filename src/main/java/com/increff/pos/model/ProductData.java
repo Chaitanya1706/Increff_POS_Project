@@ -2,13 +2,22 @@ package com.increff.pos.model;
 
 public class ProductData extends ProductForm {
 
-	private int id;
+	private Integer id;
+	private Integer brandId;
 
-	public int getId() {
+	public Integer getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(Integer brandId) {
+		this.brandId = brandId;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

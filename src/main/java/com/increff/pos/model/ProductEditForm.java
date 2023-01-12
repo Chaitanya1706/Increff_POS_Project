@@ -5,11 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductForm extends BrandForm{
+public class ProductEditForm{
 
 	private String barcode;
 	private String name;
 
 	private double mrp;
+
+	private Integer id;
 
 }

@@ -20,7 +20,7 @@
 			<div class="form-group">
 				<label for="inputBrand" class="col-m-2 col-form-label">Brand</label>
 				<div class="col-m-10">
-					<select class="form-control" name="brand" id="inputBrand" placeholder="enter brand Category">
+					<select class="form-control" name="brand" id="inputBrand" placeholder="enter brand Category" onclick = "getCategory(value)">
 						<option value="1">1</option>
 					</select>
 
@@ -31,8 +31,8 @@
 				<div class="form-group">
 					<label for="inputBrandCategory" class="col-m-2 col-form-label">Brand Category</label>
 					<div class="col-m-10">
-						<select class="form-control" onchange="getCategory(value)" name="brand_category" id="inputBrandCategory" placeholder="enter brand Category">
-							<option value="1">1</option>
+						<select class="form-control" name="category" id="inputBrandCategory" placeholder="enter brand Category">
+
 						</select>
 
 					</div>
@@ -53,7 +53,7 @@
 			  </div>
 				
 			  <div class="form-group">
-			    <label for="inputMrp" class="col-sm-2 col-form-label">Category</label>
+			    <label for="inputMrp" class="col-sm-2 col-form-label">MRP</label>
 			    <div class="col-sm-10">
 			      <input type="text" class="form-control" name="mrp" id="inputMrp" placeholder="enter mrp">
 			    </div>
@@ -80,6 +80,7 @@
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
+	      <th scope="col">Brand</th>
 	      <th scope="col">BrandCategory</th>
 	      <th scope="col">Barcode</th>
 	      <th scope="col">Name</th>
@@ -121,32 +122,24 @@
       </div>
       <div class="modal-body">
 			<form class="form-inline" id="product-edit-form">
+
 			  <div class="form-group">
 			    <label for="inputBarcode" class="col-sm-2 col-form-label">Barcode</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="inputBarcode" placeholder="enter Barcode">
+			      <input type="text" class="form-control" name="barcode" readonly>
 			    </div>
 			  </div>
-				<div class="form-group">
 
-					<label for="inputBrand" class="col-sm-2 col-form-label">Brand</label>
-					<div class="col-sm-10">
-						<select class="form-control" name="brand" placeholder="enter brand">
-							<option value="1">1</option>
-						</select>
-
-					</div>
-			  </div>
 			  <div class="form-group">
 			    <label for="inputProduct" class="col-sm-2 col-form-label">Product</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="inputProduct" placeholder="enter product">
+			      <input type="text" class="form-control" name="name" placeholder="enter product">
 			    </div>
 			  </div>
 				<div class="form-group">
 			    <label for="inputMrp" class="col-sm-2 col-form-label">MRP</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="inputMrp" placeholder="enter MRP">
+			      <input type="text" class="form-control" name="mrp" placeholder="enter MRP">
 			    </div>
 			  </div>
  	        <input type="hidden" name="id" >

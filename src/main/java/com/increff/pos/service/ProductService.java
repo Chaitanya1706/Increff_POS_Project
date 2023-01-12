@@ -1,6 +1,7 @@
 package com.increff.pos.service;
 
 import com.increff.pos.dao.ProductDao;
+import com.increff.pos.pojo.InventoryPojo;
 import com.increff.pos.pojo.ProductPojo;
 import com.increff.pos.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class ProductService {
 
 
     public void add(ProductPojo p) throws ApiException {
+
         normalize(p);
         if(StringUtil.isEmpty(p.getName())) {
             throw new ApiException("product name cannot be empty");
@@ -46,9 +48,15 @@ public class ProductService {
         ProductPojo ex = getCheck(id);
         ex.setName(p.getName());
         ex.setMrp(p.getMrp());
-        ex.setBarcode(p.getBarcode());
-        ex.setBrand_category(p.getBrand_category());
         dao.update(ex);
+    }
+
+    public Integer getIdFromBarcode(String barcode) throws ApiException{
+        ProductPojo p = dao.getProductFromBarcode(barcode);
+        if (p == null) {
+            throw new ApiException("product with given barcode does not exit, barcode: " + barcode);
+        }
+        return p.getId();
     }
 
 

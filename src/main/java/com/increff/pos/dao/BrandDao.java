@@ -3,10 +3,7 @@ package com.increff.pos.dao;
 import com.increff.pos.pojo.BrandPojo;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -16,6 +13,7 @@ public class BrandDao extends AbstractDao{
     private static String select_id = "select b from BrandPojo b where id=:id";
     private static String select_all = "select b from BrandPojo b";
     private static String select_category = "select b from BrandPojo b where brand=:brand";
+    private  static String get_category_id = "select b from BrandPojo b where brand=:brand and category=:category";
 
 
 
@@ -34,11 +32,23 @@ public class BrandDao extends AbstractDao{
     }
 
     public BrandPojo select(int id) {
-        TypedQuery<BrandPojo> query = getQuery(select_id, BrandPojo.class);
-        query.setParameter("id", id);
-        return getSingle(query);
+        try {
+            TypedQuery<BrandPojo> query = getQuery(select_id, BrandPojo.class);
+            query.setParameter("id", id);
+            return query.getSingleResult();
+        }
+        catch(NoResultException e){
+            return null;
+        }
     }
 
+    public BrandPojo getCategoryId(String brand, String category) {
+
+        TypedQuery<BrandPojo> query = getQuery(get_category_id, BrandPojo.class);
+        query.setParameter("brand", brand);
+        query.setParameter("category", category);
+        return getSingle(query);
+    }
     public List<BrandPojo> selectAll() {
         TypedQuery<BrandPojo> query = getQuery(select_all, BrandPojo.class);
         return query.getResultList();
