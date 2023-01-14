@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="baseUrl" th:attr="content=${baseUrl}">
+<meta name="order_id" th:attr="content=${order_id}">
 
 <script src="https://kit.fontawesome.com/c30beb553f.js" crossorigin="anonymous"></script>
 
@@ -65,6 +66,10 @@
 
         <li class="nav-item">
             <a class="nav-link" th:href="@{/ui/inventory}">Inventory</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/ui/order}">Order</a>
         </li>
       <li class="nav-item">
         <a class="nav-link" th:href="@{/ui/admin}">Admin</a>

@@ -1,6 +1,7 @@
 package com.increff.pos.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,5 +37,11 @@ public class AppUiController extends AbstractUiController {
 	public ModelAndView inventory() {
 		return mav("inventory.html");
 	}
+
+	@RequestMapping(value = "/ui/order")
+	public ModelAndView order() { return mav("order.html"); }
+
+	@RequestMapping(value = "/ui/order-item/{id}")
+	public ModelAndView orderItem(@PathVariable Integer id) { return mav("orderItem.html",id); }
 
 }

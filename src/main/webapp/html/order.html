@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+<nav th:replace="snippets.html :: name_app_navbar"></nav>
+
+<div class="container">
+
+<h3>Orders</h3>
+
+ <!-- Top row with form-->
+ <div class="row">
+	 <div class="col-12">
+			<form class="form-inline" id="order-form">
+
+			  <button type="button" class="btn btn-primary" id="add-order">Add</button>
+			  &nbsp;
+			  <button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
+			  &nbsp;
+			</form>
+	 </div>	
+</div> 
+
+
+<!-- Blank Row -->
+<div class="row">
+	&nbsp;
+</div>
+<div class="row">
+
+ <!-- Table -->
+ <div class="col-12">
+	<table class="table table-striped" id="order-table">
+	  <thead>
+	    <tr>
+	      <th scope="col">ID</th>
+	      <th scope="col">Date-Time</th>
+	      <th scope="col">Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+
+	  </tbody>
+	</table>
+
+</div>
+</div>
+
+
+</div> <!-- Container end-->
+
+<footer th:replace="snippets.html :: name_footer"></footer>
+
+<script th:src="@{/static/order.js}"/></script>
+
+</body>	
+
+</html>

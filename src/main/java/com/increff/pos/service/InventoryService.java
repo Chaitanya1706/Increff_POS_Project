@@ -34,6 +34,10 @@ public class InventoryService {
 
     }
 
+    public InventoryPojo getFromProductId(Integer pid){
+        return dao.getFromId(pid);
+    }
+
     public InventoryPojo get(int id) throws ApiException {
         return getCheck(id);
     }
