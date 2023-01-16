@@ -160,8 +160,8 @@ function displayProductList(data){
 //	console.log(data);
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button onclick="deleteProduct(' + e.id + ')">delete</button>'
-		buttonHtml += ' <button onclick="displayEditProduct(' + e.id + ')">edit</button>'
+		var buttonHtml = '<button class="btn btn-danger" onclick="deleteProduct(' + e.id + ')">delete</button>'
+		buttonHtml += ' <button class="btn btn-warning" onclick="displayEditProduct(' + e.id + ')">edit</button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 //		+ '<td>' + e.brandId + '</td>'

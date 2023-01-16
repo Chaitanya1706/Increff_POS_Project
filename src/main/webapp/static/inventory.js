@@ -132,7 +132,7 @@ function displayInventoryList(data){
 	for(var i in data){
 		var e = data[i];
 		c++;
-		var buttonHtml = ' <button onclick="displayEditInventory(' + e.id + ')">edit</button>'
+		var buttonHtml = ' <button class="btn btn-warning" onclick="displayEditInventory(' + e.id + ')">edit</button>'
 		var row = '<tr>'
 		+ '<td>' + c + '</td>'
 		+ '<td>' + e.barcode + '</td>'

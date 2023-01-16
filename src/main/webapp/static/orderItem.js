@@ -94,8 +94,8 @@ function displayOrderItemList(data){
 //	console.log(data);
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button onclick="deleteOrderItem(' + e.id + ')">delete</button>'
-		buttonHtml += ' <button onclick="displayEditOrderItem(' + e.id + ')">edit</button>'
+		var buttonHtml = '<button class="btn btn-danger" onclick="deleteOrderItem(' + e.id + ')">delete</button>'
+		buttonHtml += ' <button class="btn btn-warning" onclick="displayEditOrderItem(' + e.id + ')">edit</button>'
 		var row = '<tr>'
 		+ '<td>' + e.orderId + '</td>'
 		+ '<td>' + e.productName + '</td>'

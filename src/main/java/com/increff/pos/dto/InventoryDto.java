@@ -1,9 +1,11 @@
 package com.increff.pos.dto;
 
 import com.increff.pos.model.*;
+import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.pojo.InventoryPojo;
 import com.increff.pos.pojo.ProductPojo;
 import com.increff.pos.service.ApiException;
+import com.increff.pos.service.BrandService;
 import com.increff.pos.service.InventoryService;
 import com.increff.pos.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class InventoryDto {
     private InventoryService service;
     @Autowired
     private ProductService pService;
+
+    @Autowired
+    private BrandService bService;
     public void add(InventoryForm form) throws ApiException {
 
         InventoryPojo b = convert(form);
@@ -44,6 +49,15 @@ public class InventoryDto {
         return list2;
     }
 
+    public List<InventoryReportData> getInventoryReport() throws ApiException {
+        List<InventoryPojo> list = service.getAll();
+        List<InventoryReportData> list2 = new ArrayList<InventoryReportData>();
+        for (InventoryPojo p : list) {
+            list2.add(convertInventoryReport(p));
+        }
+        return list2;
+    }
+
 
     public void update(int id, InventoryForm f) throws ApiException {
         InventoryPojo p = convert(f);
@@ -56,6 +70,17 @@ public class InventoryDto {
         d.setQuantity(i.getQuantity());
         d.setBarcode(pService.get(i.getProductId()).getBarcode());
         d.setProductName(i.getProductName());
+        d.setId(i.getId());
+        return d;
+    }
+
+    private InventoryReportData convertInventoryReport(InventoryPojo i) throws ApiException {
+        InventoryReportData d = new InventoryReportData();
+        ProductPojo pp = pService.get(i.getProductId());
+        BrandPojo bp = bService.get(pp.getBrand_category());
+        d.setQuantity(i.getQuantity());
+        d.setBrand(bp.getBrand());
+        d.setBrandCategory(bp.getCategory());
         d.setId(i.getId());
         return d;
     }

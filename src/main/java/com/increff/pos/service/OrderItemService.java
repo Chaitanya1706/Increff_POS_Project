@@ -1,6 +1,7 @@
 package com.increff.pos.service;
 
 import com.increff.pos.dao.OrderItemDao;
+import com.increff.pos.pojo.InventoryPojo;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,20 @@ public class OrderItemService {
 
     public void add(OrderItemPojo o) throws ApiException {
 
-        dao.insert(o);
+        if(o.getProductId()==null) {
+            throw new ApiException("barcode cannot be empty");
+        }
+        OrderItemPojo op = dao.getFromBarcode(o.getOrderId(),o.getProductId());
+        if(op==null){
+            dao.insert(o);
+        }
+        else{
+            op.setQuantity(op.getQuantity()+o.getQuantity());
+            dao.update(op);
+        }
 
     }
 
-//    public OrderItemPojo getFromBarcode(int id) {
-//        return dao.getFromBarcode(id);
-//    }
     public void delete(int id) {
         dao.delete(id);
     }

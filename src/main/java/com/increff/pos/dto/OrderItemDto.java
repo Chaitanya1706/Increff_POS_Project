@@ -27,9 +27,6 @@ public class OrderItemDto {
     @Autowired
     private InventoryService inventoryService;
     public void add(OrderItemForm form, Integer id) throws ApiException {
-//        if(service.getFromBarcode(productService.getIdFromBarcode(form.getBarcode()))!=null){
-//            throw new ApiException("OrderItem with this barcode already exist");
-//        }
         OrderItemPojo p = convert(form,id);
         service.add(p);
     }
