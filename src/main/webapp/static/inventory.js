@@ -19,6 +19,7 @@ function addInventory(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+
 	   		getInventoryList();
 	   },
 	   error: handleAjaxError
@@ -206,5 +207,11 @@ function init(){
 }
 
 $(document).ready(init);
+
+
+$(document).ready(function () {
+  $('#inventory-table').DataTable();
+});
+
 $(document).ready(getInventoryList);
 

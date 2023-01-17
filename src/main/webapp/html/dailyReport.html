@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+<nav th:replace="snippets.html :: name_app_navbar"></nav>
+
+<div class="container">
+
+<h3>Daily Report</h3>
+
+ <!-- Top row with form-->
+ <div class="row">
+	 <div class="col-12">
+			<form class="form-inline" id="dailyReport-form">
+			  <div class="form-group">
+			    <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
+			    <div class="col-sm-10">
+			      <input type="date" class="form-control" name="startDate" id="startDate" placeholder="enter start date">
+			    </div>
+			  </div>
+				<div class="form-group">
+					<label for="endDate" class="col-sm-2 col-form-label">End Date</label>
+					<div class="col-sm-10">
+						<input type="date" class="form-control" name="endDate" id="endDate" placeholder="enter end date">
+					</div>
+				</div>
+			  <button type="button" class="btn btn-success" id="get-report">Get Report</button>
+			  &nbsp;
+			</form>
+	 </div>	
+</div> 
+
+
+<!-- Blank Row -->
+<div class="row">
+	&nbsp;
+</div>
+<div class="row">
+
+ <!-- Table -->
+ <div class="col-12">
+	<table class="table table-striped" id="dailyReport-table">
+	  <thead>
+	    <tr>
+	      <th scope="col">S.No.</th>
+	      <th scope="col">Date</th>
+	      <th scope="col">Total Order</th>
+	      <th scope="col">Total Item</th>
+	      <th scope="col">Total Revenue</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+
+	  </tbody>
+	</table>
+
+</div>
+</div>
+
+</div> <!-- Container end-->
+
+<footer th:replace="snippets.html :: name_footer"></footer>
+
+<script th:src="@{/static/dailyReport.js}"/></script>
+
+</body>	
+
+</html>

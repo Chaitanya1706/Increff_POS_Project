@@ -12,8 +12,8 @@ import sun.util.calendar.LocalGregorianCalendar;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 @Transactional(rollbackFor = ApiException.class)
@@ -40,6 +40,43 @@ public class OrderService {
         return dao.selectAll();
     }
 
+    public TreeMap<String,List<Integer>> getDateWiseOrders() throws ApiException {
+        List<OrderPojo> op = dao.selectAll();
+        TreeMap<String,List<Integer>> map = new TreeMap<>();
+
+            for (OrderPojo o : op) {
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String formattedDateTime = o.getDate().format(dateTimeFormatter);
+                if (!map.containsKey(formattedDateTime)) {
+                    map.put(formattedDateTime, new ArrayList<>());
+                }
+
+                map.get(formattedDateTime).add(o.getId());
+
+            }
+            return map;
+
+    }
+
+
+//    public TreeMap<String,List<Integer>> getFilteredDateWiseOrders(String s, String e) throws ApiException {
+//        List<OrderPojo> op = dao.selectAllFiltered(s,e);
+//        TreeMap<String,List<Integer>> map = new TreeMap<>();
+//
+//        for (OrderPojo o : op) {
+//
+//            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            String formattedDateTime = o.getDate().format(dateTimeFormatter);
+//            if (!map.containsKey(formattedDateTime)) {
+//                map.put(formattedDateTime, new ArrayList<>());
+//            }
+//
+//            map.get(formattedDateTime).add(o.getId());
+//
+//        }
+//        return map;
+//
+//    }
 
     public OrderPojo getCheck(int id) throws ApiException {
         OrderPojo b = dao.select(id);
