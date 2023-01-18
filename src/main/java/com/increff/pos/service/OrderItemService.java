@@ -52,6 +52,10 @@ public class OrderItemService {
         return dao.selectByOrderId(id);
     }
 
+    public List<OrderItemPojo> getFromProductId(Integer id){
+        return dao.getFromProductId(id);
+    }
+
     public void update(int id, OrderItemPojo b) throws ApiException {
         OrderItemPojo ex = getCheck(id);
         ex.setQuantity(b.getQuantity());

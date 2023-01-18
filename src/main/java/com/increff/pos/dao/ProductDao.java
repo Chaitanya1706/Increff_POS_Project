@@ -20,6 +20,7 @@ public class ProductDao extends AbstractDao{
     private static String select_all = "select p from ProductPojo p";
 
     private static String get_id = "select p from ProductPojo p where barcode=:barcode";
+    private static String get_product_from_brandId = "select p from ProductPojo p where brand_category=:id";
 
 
     @PersistenceContext
@@ -61,6 +62,11 @@ public class ProductDao extends AbstractDao{
         return getSingle(query);
     }
 
+    public List<ProductPojo> getProductFromBrandId(Integer id){
+        TypedQuery<ProductPojo> query = getQuery(get_product_from_brandId, ProductPojo.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
 
     public void update(ProductPojo p) {
     }

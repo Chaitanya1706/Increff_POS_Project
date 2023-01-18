@@ -1,10 +1,6 @@
 package com.increff.pos.controller;
-import com.increff.pos.dto.BrandDto;
-import com.increff.pos.dto.ReportDto;
-import com.increff.pos.model.BrandData;
-import com.increff.pos.model.BrandForm;
-import com.increff.pos.model.DailyReportData;
-import com.increff.pos.model.DailyReportForm;
+import com.increff.pos.dto.DailyReportDto;
+import com.increff.pos.model.*;
 import com.increff.pos.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,25 +11,22 @@ import java.util.List;
 
 @Api
 @RestController
-public class ReportApiController {
+public class DailyReportApiController {
 
     @Autowired
-    private ReportDto rdto;
+    private DailyReportDto ddto;
 
     @ApiOperation(value = "post daily report")
     @RequestMapping(path = "/api/report/daily", method = RequestMethod.POST)
     public List<DailyReportData> add(@RequestBody DailyReportForm form) throws ApiException {
-            return rdto.getFilteredReport(form);
+            return ddto.getFilteredReport(form);
     }
 
     @ApiOperation(value = "post daily report")
     @RequestMapping(path = "/api/report/daily", method = RequestMethod.GET)
     public List<DailyReportData> getAll() throws ApiException {
-        return rdto.getAll();
+        return ddto.getAll();
     }
-
-
-
 
 
 

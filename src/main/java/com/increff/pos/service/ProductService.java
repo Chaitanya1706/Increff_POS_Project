@@ -59,6 +59,10 @@ public class ProductService {
         return p.getId();
     }
 
+    public List<ProductPojo> getProductFromBrandId(Integer id){
+        return dao.getProductFromBrandId(id);
+    }
+
 
     public ProductPojo getCheck(int id) throws ApiException {
         ProductPojo p = dao.select(id);

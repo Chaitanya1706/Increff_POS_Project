@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -63,6 +65,18 @@ public class BrandService {
         return dao.selectAll();
     }
 
+    public HashMap<String,List<String>> getBrandWiseCategory(){
+        List<BrandPojo> bp = dao.selectAll();
+        HashMap<String,List<String>> map = new HashMap<>();
+
+        for(BrandPojo b : bp){
+            if(!map.containsKey(b.getBrand())){
+                map.put(b.getBrand(),new ArrayList<>());
+            }
+            map.get(b.getBrand()).add(b.getCategory());
+        }
+        return map;
+    }
 
     public void update(int id, BrandPojo b) throws ApiException {
         normalize(b);

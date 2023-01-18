@@ -2,6 +2,7 @@ package com.increff.pos.service;
 
 import com.increff.pos.dao.BrandDao;
 import com.increff.pos.dao.OrderDao;
+import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.util.StringUtil;
@@ -59,24 +60,28 @@ public class OrderService {
     }
 
 
-//    public TreeMap<String,List<Integer>> getFilteredDateWiseOrders(String s, String e) throws ApiException {
-//        List<OrderPojo> op = dao.selectAllFiltered(s,e);
-//        TreeMap<String,List<Integer>> map = new TreeMap<>();
-//
-//        for (OrderPojo o : op) {
-//
-//            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            String formattedDateTime = o.getDate().format(dateTimeFormatter);
-//            if (!map.containsKey(formattedDateTime)) {
-//                map.put(formattedDateTime, new ArrayList<>());
-//            }
-//
-//            map.get(formattedDateTime).add(o.getId());
-//
-//        }
-//        return map;
-//
-//    }
+    public TreeMap<String,List<Integer>> getFilteredDateWiseOrders(LocalDateTime s, LocalDateTime e) throws ApiException {
+        List<OrderPojo> op = dao.selectAllFiltered(s,e);
+        TreeMap<String,List<Integer>> map = new TreeMap<>();
+
+        for (OrderPojo o : op) {
+
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String formattedDateTime = o.getDate().format(dateTimeFormatter);
+            if (!map.containsKey(formattedDateTime)) {
+                map.put(formattedDateTime, new ArrayList<>());
+            }
+
+            map.get(formattedDateTime).add(o.getId());
+
+        }
+        return map;
+
+    }
+
+    public List<OrderPojo> getFilteredOrder(LocalDateTime s, LocalDateTime e){
+        return dao.selectAllFiltered(s,e);
+    }
 
     public OrderPojo getCheck(int id) throws ApiException {
         OrderPojo b = dao.select(id);

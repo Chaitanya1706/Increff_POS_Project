@@ -20,6 +20,7 @@ public class OrderItemDao extends AbstractDao{
     private static String select_all = "select p from OrderItemPojo p";
     private static String select_by_order_id = "select p from OrderItemPojo p where orderId=:id";
     private static String get_from_barcode = "select p from OrderItemPojo p where orderId=:oid and productId=:pid";
+    private static String get_from_productId = "select p from OrderItemPojo p where productId=:pid";
 
 
     @PersistenceContext
@@ -54,6 +55,12 @@ public class OrderItemDao extends AbstractDao{
     public List<OrderItemPojo> selectByOrderId(Integer id) {
         TypedQuery<OrderItemPojo> query = getQuery(select_by_order_id, OrderItemPojo.class);
         query.setParameter("id", id);
+        return query.getResultList();
+    }
+
+    public List<OrderItemPojo> getFromProductId(Integer id) {
+        TypedQuery<OrderItemPojo> query = getQuery(get_from_productId, OrderItemPojo.class);
+        query.setParameter("pid", id);
         return query.getResultList();
     }
 

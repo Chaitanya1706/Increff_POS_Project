@@ -5,13 +5,14 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public class OrderDao extends AbstractDao{
     private static String select_id = "select b from OrderPojo b where id=:id";
     private static String select_all = "select b from OrderPojo b";
-//    private static String select_all_filtered = "select b from OrderPojo b where b.date>=:s and b.data<=:e";
+    private static String select_all_filtered = "select b from OrderPojo b where b.date>=:s and b.date<=:e";
 
     @PersistenceContext
     private EntityManager em;
@@ -39,12 +40,12 @@ public class OrderDao extends AbstractDao{
         return query.getResultList();
     }
 
-//    public List<OrderPojo> selectAllFiltered(String s, String e) {
-//        TypedQuery<OrderPojo> query = getQuery(select_all_filtered, OrderPojo.class);
-//        query.setParameter("s", s);
-//        query.setParameter("e", e);
-//        return query.getResultList();
-//    }
+    public List<OrderPojo> selectAllFiltered(LocalDateTime s, LocalDateTime e) {
+        TypedQuery<OrderPojo> query = getQuery(select_all_filtered, OrderPojo.class);
+        query.setParameter("s", s);
+        query.setParameter("e", e);
+        return query.getResultList();
+    }
 
 
     public void update(OrderPojo p) {
