@@ -4,14 +4,12 @@ import com.increff.pos.dao.BrandDao;
 import com.increff.pos.dao.OrderDao;
 import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.pojo.OrderPojo;
-import com.increff.pos.pojo.OrderPojo;
-import com.increff.pos.util.StringUtil;
+import com.increff.pos.pojo.ProductPojo;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.util.calendar.LocalGregorianCalendar;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -79,6 +77,12 @@ public class OrderService {
 
     }
 
+    public void update(int id, OrderPojo p) throws ApiException {
+        OrderPojo ex = getCheck(id);
+        ex.setStatus(p.getStatus());
+        dao.update(ex);
+    }
+
     public List<OrderPojo> getFilteredOrder(LocalDateTime s, LocalDateTime e){
         return dao.selectAllFiltered(s,e);
     }
@@ -90,5 +94,7 @@ public class OrderService {
         }
         return b;
     }
+
+
 
 }

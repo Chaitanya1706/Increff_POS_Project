@@ -13,4 +13,6 @@ public class OrderData {
 
 	private String date;
 
+	private Boolean status;
+
 }

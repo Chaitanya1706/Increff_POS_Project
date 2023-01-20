@@ -45,6 +45,7 @@ public class OrderDto {
         OrderData d = new OrderData();
         d.setId(o.getId());
         d.setDate(formattedDateTime);
+        d.setStatus(o.getStatus());
         return d;
     }
 

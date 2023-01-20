@@ -6,6 +6,7 @@ function getInventoryUrl(){
 
 
 function getInventoryReportList(){
+
 	var url = getInventoryUrl()+"/report";
 	$.ajax({
 	   url: url,

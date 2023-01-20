@@ -11,6 +11,7 @@
 	<name>employee-spring</name>
 	<url>http://maven.apache.org</url>
 
+
 	<properties>
 		<!-- Maven configuration -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -183,6 +184,20 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.24</version>
 			<scope>provided</scope>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop -->
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>fop</artifactId>
+			<version>2.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 

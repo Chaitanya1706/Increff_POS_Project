@@ -4,6 +4,16 @@ function getOrderItemUrl(){
 	return baseUrl + "/api/order-item";
 }
 
+function getOrderUrl(){
+	var baseUrl = $("meta[name=baseUrl]").attr("content")
+	return baseUrl + "/ui/order";
+}
+
+function getPdfUrl(){
+	var baseUrl = $("meta[name=baseUrl]").attr("content")
+	return baseUrl + "/api/pdf";
+}
+
 var order_id;
 
 //BUTTON ACTIONS
@@ -119,6 +129,18 @@ function displayEditOrderItem(id){
 	   },
 	   error: handleAjaxError
 	});	
+}
+
+function placeOrder(){
+        var url = getPdfUrl()+"/"+order_id;
+        $.ajax({
+           url: url,
+           type: 'GET',
+           success: function() {
+                window.location.href = getOrderUrl()
+           },
+           error: handleAjaxError
+        });
 }
 
 

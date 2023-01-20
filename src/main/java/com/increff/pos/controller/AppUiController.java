@@ -1,5 +1,9 @@
 package com.increff.pos.controller;
 
+import com.increff.pos.pojo.OrderPojo;
+import com.increff.pos.service.ApiException;
+import com.increff.pos.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AppUiController extends AbstractUiController {
 
+	@Autowired
+	private OrderService service;
 	@RequestMapping(value = "/ui/home")
 	public ModelAndView home() {
 		return mav("home.html");
@@ -47,7 +53,14 @@ public class AppUiController extends AbstractUiController {
 	public ModelAndView order() { return mav("order.html"); }
 
 	@RequestMapping(value = "/ui/order-item/{id}")
-	public ModelAndView orderItem(@PathVariable Integer id) { return mav("orderItem.html",id); }
+	public ModelAndView orderItem(@PathVariable Integer id) throws ApiException {
+		if(service.get(id).getStatus()==false) {
+			return mav("orderItem.html",id);
+		}
+		else{
+			return mav("order.html");
+		}
+	}
 
 	@RequestMapping(value = "/ui/dailyReport")
 	public ModelAndView dailyReport() {

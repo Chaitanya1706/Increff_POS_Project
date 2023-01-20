@@ -18,12 +18,15 @@ public class OrderPojo {
     private Integer id;
     private LocalDateTime date;
 
+    private Boolean status;
 
     //todo -> naming strategy
 
     // todo -> make barcode unique
     // todo -> not null/ empty
-
+    public OrderPojo(){
+        this.status = false;
+    }
 
 
 }
