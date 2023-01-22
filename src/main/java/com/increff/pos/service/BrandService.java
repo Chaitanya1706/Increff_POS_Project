@@ -34,12 +34,6 @@ public class BrandService {
         }
     }
 
-
-    public void delete(int id) {
-        dao.delete(id);
-    }
-
-
     public BrandPojo get(int id) throws ApiException {
         return getCheck(id);
     }

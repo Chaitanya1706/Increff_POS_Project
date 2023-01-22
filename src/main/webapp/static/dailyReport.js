@@ -23,7 +23,13 @@ function getReport(event){
 	   },
 	   error: handleAjaxError
 	});
+
 	return false;
+}
+
+function pagenation(){
+    $('#ordailyReport-table').DataTable();
+      $('.dataTables_length').addClass("bs-select");
 }
 
 
@@ -42,6 +48,7 @@ function getReportList(){
 //UI DISPLAY METHODS
 
 function displayReportList(data){
+    $('#dailyReport-table').DataTable().destroy();
 	var $tbody = $('#dailyReport-table').find('tbody');
 	$tbody.empty();
 	var c = 0;
@@ -57,6 +64,7 @@ function displayReportList(data){
 		+ '</tr>';
         $tbody.append(row);
 	}
+	pagenation();
 }
 
 

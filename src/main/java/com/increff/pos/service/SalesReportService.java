@@ -31,42 +31,8 @@ public class SalesReportService {
     private OrderService oService;
 
     public List<SalesReportData> getAll() throws ApiException {
-        List<OrderPojo> op = oService.getAll();
+        List<OrderPojo> op = oService.getAllPlaced();
         return getFilteredSalesReportDateWise(op,"all","all");
-//        HashMap<String,List<String>> map = bService.getBrandWiseCategory();
-//
-//        List<SalesReportData> list2 = new ArrayList<SalesReportData>();
-//
-//        for (Map.Entry<String,List<String>> e : map.entrySet()){
-//            List<String> categories = e.getValue();
-//
-//            for(String c : categories){
-//                Integer qty = 0;
-//                Double revenue = 0.0;
-//
-//                Integer id = bService.getCategoryId(e.getKey(),c);
-//                List<ProductPojo> pp = pService.getProductFromBrandId(id);
-//                for(ProductPojo p : pp){
-//                    List<OrderItemPojo> op = oiService.getFromProductId(p.getId());
-//                    for(OrderItemPojo o : op){
-//                        qty+=o.getQuantity();
-//                        revenue += o.getSellingPrice()*o.getQuantity();
-//                    }
-//
-//                }
-//
-//                SalesReportData d = new SalesReportData();
-//                d.setBrand(e.getKey());
-//                d.setCategory(c);
-//                d.setQuantity(qty);
-//                d.setRevenue(revenue);
-////                System.out.println(d.getBrand()+"   ");
-//                list2.add(d);
-//
-//            }
-//
-//        }
-//        return list2;
     }
 
     public List<SalesReportData> getFilteredSalesReportDateWise(List<OrderPojo> op, String brand, String category) throws ApiException {

@@ -127,22 +127,29 @@ function downloadErrors(){
 //UI DISPLAY METHODS
 
 function displayInventoryList(data){
+    $('#inventory-table').DataTable().destroy();
 	var $tbody = $('#inventory-table').find('tbody');
 	$tbody.empty();
 	var c = 0;
 	for(var i in data){
 		var e = data[i];
 		c++;
-		var buttonHtml = ' <button class="btn btn-warning" onclick="displayEditInventory(' + e.id + ')">edit</button>'
+		var buttonHtml = ' <button class="btn btn-warning" onclick="displayEditInventory(' + e.id + ')"><i class="fa-solid fa-pen-to-square"></i></button>'
 		var row = '<tr>'
 		+ '<td>' + c + '</td>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>'  + e.productName + '</td>'
 		+ '<td>'  + e.quantity + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	pagenation();
+}
+
+function pagenation(){
+    $('#inventory-table').DataTable();
+      $('.dataTables_length').addClass("bs-select");
 }
 
 function displayEditInventory(id){
@@ -207,11 +214,5 @@ function init(){
 }
 
 $(document).ready(init);
-
-
-$(document).ready(function () {
-  $('#inventory-table').DataTable();
-});
-
 $(document).ready(getInventoryList);
 

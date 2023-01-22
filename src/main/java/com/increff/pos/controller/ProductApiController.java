@@ -24,14 +24,6 @@ public class ProductApiController {
         pdto.add(form);
     }
 
-
-    @ApiOperation(value = "Deletes a product")
-    @RequestMapping(path = "/api/product/{id}", method = RequestMethod.DELETE)
-    // /api/1
-    public void delete(@PathVariable int id) {
-        pdto.delete(id);
-    }
-
     @ApiOperation(value = "Gets a product by ID")
     @RequestMapping(path = "/api/product/{id}", method = RequestMethod.GET)
     public ProductData get(@PathVariable int id) throws ApiException {

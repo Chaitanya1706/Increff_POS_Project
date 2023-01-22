@@ -21,3 +21,15 @@ body {
 .fas{
     font-size: 4rem;
 }
+
+.pd-l {
+    padding : 5px 16.8rem;
+}
+
+.pd-m {
+    padding : 5px 5rem;
+}
+
+.pd-order {
+    padding : 5px 26.8rem;
+}

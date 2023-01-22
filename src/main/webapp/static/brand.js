@@ -1,7 +1,7 @@
 
 function getBrandUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/brand";
+	return baseUrl + "/api/brands";
 }
 
 //BUTTON ACTIONS
@@ -66,18 +66,6 @@ function getBrandList(){
 	});
 }
 
-function deleteBrand(id){
-	var url = getBrandUrl() + "/" + id;
-
-	$.ajax({
-	   url: url,
-	   type: 'DELETE',
-	   success: function(data) {
-	   		getBrandList();
-	   },
-	   error: handleAjaxError
-	});
-}
 
 // FILE UPLOAD METHODS
 var fileData = [];
@@ -137,20 +125,26 @@ function downloadErrors(){
 //UI DISPLAY METHODS
 
 function displayBrandList(data){
+    $('#brand-table').DataTable().destroy();
 	var $tbody = $('#brand-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button class="btn btn-danger" onclick="deleteBrand(' + e.id + ')">delete</button>'
-		buttonHtml += ' <button class="btn btn-warning" onclick="displayEditBrand(' + e.id + ')">edit</button>'
+		var buttonHtml = ' <button class="btn btn-warning" onclick="displayEditBrand(' + e.id + ')"><i class="fa-solid fa-pen-to-square"></i></button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + e.brand + '</td>'
 		+ '<td>'  + e.category + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	pagenation();
+}
+
+function pagenation(){
+    $('#brand-table').DataTable();
+      $('.dataTables_length').addClass("bs-select");
 }
 
 function displayEditBrand(id){

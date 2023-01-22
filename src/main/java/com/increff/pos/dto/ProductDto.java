@@ -27,10 +27,6 @@ public class ProductDto {
         service.add(p);
     }
 
-    public void delete(int id) {
-        service.delete(id);
-    }
-
     public ProductData get(int id) throws ApiException {
         ProductPojo p = service.get(id);
         return convert(p);

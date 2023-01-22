@@ -6,7 +6,7 @@ function getProductUrl(){
 
 function getBrandUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/brand";
+	return baseUrl + "/api/brands";
 }
 
 //BUTTON ACTIONS
@@ -84,19 +84,6 @@ function getCategoryList(){
 	});
 }
 
-function deleteProduct(id){
-	var url = getProductUrl() + "/" + id;
-
-	$.ajax({
-	   url: url,
-	   type: 'DELETE',
-	   success: function(data) {
-	   		getProductList();
-	   },
-	   error: handleAjaxError
-	});
-}
-
 // FILE UPLOAD METHODS
 var fileData = [];
 var errorData = [];
@@ -155,13 +142,13 @@ function downloadErrors(){
 //UI DISPLAY METHODS
 
 function displayProductList(data){
+    $('#product-table').DataTable().destroy();
 	var $tbody = $('#product-table').find('tbody');
 	$tbody.empty();
 //	console.log(data);
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button class="btn btn-danger" onclick="deleteProduct(' + e.id + ')">delete</button>'
-		buttonHtml += ' <button class="btn btn-warning" onclick="displayEditProduct(' + e.id + ')">edit</button>'
+		var buttonHtml = ' <button class="btn btn-warning" onclick="displayEditProduct(' + e.id + ')"><i class="fa-solid fa-pen-to-square"></i></button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 //		+ '<td>' + e.brandId + '</td>'
@@ -170,10 +157,16 @@ function displayProductList(data){
 		+ '<td>'  + e.barcode + '</td>'
 		+ '<td>'  + e.name + '</td>'
 		+ '<td>'  + e.mrp + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	pagenation();
+}
+
+function pagenation(){
+    $('#product-table').DataTable();
+      $('.dataTables_length').addClass("bs-select");
 }
 
 function getList(data){

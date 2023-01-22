@@ -29,11 +29,6 @@ public class ProductService {
     }
 
 
-    public void delete(int id) {
-        dao.delete(id);
-    }
-
-
     public ProductPojo get(int id) throws ApiException {
         return getCheck(id);
     }

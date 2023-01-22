@@ -6,7 +6,7 @@ function getSalesReportUrl(){
 
 function getBrandUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/brand";
+	return baseUrl + "/api/brands";
 }
 
 //BUTTON ACTIONS
@@ -62,6 +62,7 @@ function getBrandList(){
 //UI DISPLAY METHODS
 
 function displayReport(data){
+    $('#salesReport-table').DataTable().destroy();
 	var $tbody = $('#salesReport-table').find('tbody');
 	$tbody.empty();
 //	console.log(data);
@@ -78,6 +79,12 @@ function displayReport(data){
 		+ '</tr>';
         $tbody.append(row);
 	}
+	pagenation();
+}
+
+function pagenation(){
+    $('#salesReport-table').DataTable();
+      $('.dataTables_length').addClass("bs-select");
 }
 
 function getList(data){

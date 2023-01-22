@@ -3,13 +3,11 @@ package com.increff.pos.dto;
 import com.increff.pos.model.OrderData;
 import com.increff.pos.model.PdfData;
 import com.increff.pos.model.PdfListData;
+import com.increff.pos.pojo.InventoryPojo;
 import com.increff.pos.pojo.OrderItemPojo;
 import com.increff.pos.pojo.OrderPojo;
 import com.increff.pos.pojo.ProductPojo;
-import com.increff.pos.service.ApiException;
-import com.increff.pos.service.OrderItemService;
-import com.increff.pos.service.OrderService;
-import com.increff.pos.service.ProductService;
+import com.increff.pos.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +28,10 @@ public class PdfDto {
     @Autowired
     private ProductService pService;
 
+    @Autowired
+    private InventoryService iService;
+
     public PdfData get(int id) throws ApiException {
-
-        OrderPojo op = oService.get(id);
-
-        op.setStatus(true);
-        oService.update(id,op);
 
         List<OrderItemPojo> l = oiService.getByOrderId(id);
         if(l.size()==0){
@@ -50,7 +46,10 @@ public class PdfDto {
         d.setInvoiceTime(formattedTime);
         d.setInvoiceDate(formattedDate);
         d.setOrderId(id);
+        OrderPojo op = oService.get(id);
 
+        op.setStatus(true);
+        oService.update(id,op);
         return d;
     }
 
@@ -62,6 +61,10 @@ public class PdfDto {
             c++;
             PdfListData d = new PdfListData();
             ProductPojo pp = pService.get(op.getProductId());
+            InventoryPojo ip = iService.getFromProductId(op.getProductId());
+            if(ip.getQuantity()<op.getQuantity()){
+                throw new ApiException("Only " + ip.getQuantity() + " pieces left in inventory");
+            }
             d.setSno(c);
             d.setBarcode(pp.getBarcode());
             d.setProduct(pp.getName());
@@ -71,6 +74,8 @@ public class PdfDto {
             total += v;
             d.setAmount(v);
             list.add(d);
+            ip.setQuantity(ip.getQuantity()-op.getQuantity());
+            iService.update(ip.getId(),ip);
         }
         pd.setTotal(total);
         pd.setItemList(list);

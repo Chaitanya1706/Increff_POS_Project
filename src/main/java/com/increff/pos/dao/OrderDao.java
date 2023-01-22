@@ -12,7 +12,8 @@ import java.util.List;
 public class OrderDao extends AbstractDao{
     private static String select_id = "select b from OrderPojo b where id=:id";
     private static String select_all = "select b from OrderPojo b";
-    private static String select_all_filtered = "select b from OrderPojo b where b.date>=:s and b.date<=:e";
+    private static String select_all_placed = "select b from OrderPojo b where status=true";
+    private static String select_all_filtered = "select b from OrderPojo b where b.date>=:s and b.date<=:e and status=true";
 
     @PersistenceContext
     private EntityManager em;
@@ -37,6 +38,11 @@ public class OrderDao extends AbstractDao{
 
     public List<OrderPojo> selectAll() {
         TypedQuery<OrderPojo> query = getQuery(select_all, OrderPojo.class);
+        return query.getResultList();
+    }
+
+    public List<OrderPojo> selectAllPlaced() {
+        TypedQuery<OrderPojo> query = getQuery(select_all_placed, OrderPojo.class);
         return query.getResultList();
     }
 

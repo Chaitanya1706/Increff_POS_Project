@@ -39,8 +39,12 @@ public class OrderService {
         return dao.selectAll();
     }
 
+    public List<OrderPojo> getAllPlaced() {
+        return dao.selectAllPlaced();
+    }
+
     public TreeMap<String,List<Integer>> getDateWiseOrders() throws ApiException {
-        List<OrderPojo> op = dao.selectAll();
+        List<OrderPojo> op = dao.selectAllPlaced();
         TreeMap<String,List<Integer>> map = new TreeMap<>();
 
             for (OrderPojo o : op) {

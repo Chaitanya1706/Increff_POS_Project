@@ -45,9 +45,6 @@ public class PdfApiController {
     @ApiOperation(value = "generate pdf")
     @RequestMapping(path = "/api/pdf/download/{id}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> download(@PathVariable int id) throws ApiException, IOException {
-        PDF_Generator pdfGenerator = new PDF_Generator();
-        PdfData d = pdto.get(id);
-        pdfGenerator.pdf_generator(d);
 
         Path pdf = Paths.get("./src/main/resources/apache/PdfFile/"+id+"_invoice.pdf");
 

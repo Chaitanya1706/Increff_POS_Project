@@ -33,9 +33,6 @@ public class OrderItemDto {
 
     public void delete(int id) throws ApiException {
         OrderItemPojo op = service.get(id);
-        InventoryPojo ip = inventoryService.getFromProductId(op.getProductId());
-        ip.setQuantity(ip.getQuantity()+op.getQuantity());
-        inventoryService.update(ip.getId(),ip);
         service.delete(id);
     }
 
@@ -98,8 +95,7 @@ public class OrderItemDto {
         p.setOrderId(id);
         p.setQuantity(f.getQuantity());
         p.setSellingPrice(f.getSellingPrice());
-        ip.setQuantity(ip.getQuantity()-f.getQuantity());
-        inventoryService.update(ip.getId(),ip);
+
         return p;
     }
 
@@ -118,8 +114,8 @@ public class OrderItemDto {
             throw new ApiException("Only " + ip.getQuantity() + " pieces left in inventory");
         }
 
-        ip.setQuantity(q-f.getQuantity());
-        inventoryService.update(ip.getId(),ip);
+//        ip.setQuantity(q-f.getQuantity());
+//        inventoryService.update(ip.getId(),ip);
         p.setQuantity(f.getQuantity());
         p.setSellingPrice(f.getSellingPrice());
         return p;

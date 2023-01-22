@@ -23,10 +23,6 @@ public class BrandDto {
         service.add(b);
     }
 
-    public void delete(int id) {
-        service.delete(id);
-    }
-
     public BrandData get(int id) throws ApiException {
         BrandPojo p = service.get(id);
         return convert(p);

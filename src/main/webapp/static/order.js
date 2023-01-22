@@ -75,7 +75,7 @@ function download(id){
 //UI DISPLAY METHODS
 
 function displayOrderList(data){
-
+    $('#order-table').DataTable().destroy();
 	var $tbody = $('#order-table').find('tbody');
 	$tbody.empty();
 
@@ -87,21 +87,27 @@ function displayOrderList(data){
 		var purl = getPdfUrl() + "/" + e.id;
 
 		if(e.status==true){
-		    var buttonHtml = '<button type="button" class="btn btn-secondary" id="download" onclick="download(' + e.id + ')">Download Invoice</button>'
+		    var buttonHtml = '<button type="button" class="btn btn-secondary" id="download" onclick="download(' + e.id + ')"><i class="fa-solid fa-file-arrow-down"></i></button>'
 		}
 		else{
-		    var buttonHtml = '<a class="btn btn-primary btn-md mr-3" href="'+ ourl + '" role="button">Edit Order</a>'
-		    buttonHtml += '<button type="button" class="btn btn-success" id="place-order" onclick="placeOrder(' + e.id + ')">Place Order</button>'
+		    var buttonHtml = '<a class="btn btn-warning btn-md mr-3" href="'+ ourl + '" role="button"><i class="fa-solid fa-pen-to-square"></i></a>'
+		    buttonHtml += '<button type="button" class="btn btn-success" id="place-order" onclick="placeOrder(' + e.id + ')"><i class="fa-solid fa-square-check"></i></button>'
 		}
 
 //		      buttonHtml += '<a class="btn btn-success btn-md" href="'+ purl + '" role="button">Place Order</a>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
 		+ '<td>' + e.date + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class="text-center">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	pagenation();
+}
+
+function pagenation(){
+    $('#order-table').DataTable();
+      $('.dataTables_length').addClass("bs-select");
 }
 
 

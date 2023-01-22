@@ -25,6 +25,7 @@ function getInventoryReportList(){
 //UI DISPLAY METHODS
 
 function displayInventoryReportList(data){
+    $('#inventoryReport-table').DataTable().destroy();
 	var $tbody = $('#inventoryReport-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
@@ -36,6 +37,12 @@ function displayInventoryReportList(data){
 		+ '</tr>';
         $tbody.append(row);
 	}
+	pagenation();
+}
+
+function pagenation(){
+    $('#inventoryReport-table').DataTable();
+      $('.dataTables_length').addClass("bs-select");
 }
 
 $(document).ready(getInventoryReportList);
